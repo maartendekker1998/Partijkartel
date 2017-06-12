@@ -1,11 +1,11 @@
 /**
- * This class is part of the "Zorld of Wuul" application. 
- * "Zorld of Wuul" is a very simple, text based adventure game.  
+ * This class is part of the "Thiery Baudet" application. 
+ * "Thierry Baudet" is a very simple, text based adventure game.   
  * 
  * This printer makes adding text to the output HTMLElement more convenient
  * to the developer. It acts much like the System.out object in java
  * 
- * @author  Bugslayer
+ * @author  Bugslayer and Maarten Dekker
  * @version 2017.03.30
  */
 class Printer {

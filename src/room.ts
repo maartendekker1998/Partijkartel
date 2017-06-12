@@ -1,15 +1,15 @@
 /**
  * Class Room - a room in an adventure game.
  *
- * This class is part of the "Zorld of Wuul" application. 
- * "Zorld of Wuul" is a very simple, text based adventure game.  
+ * This class is part of the "Thiery Baudet" application. 
+ * "Thierry Baudet" is a very simple, text based adventure game.   
  *
  * A "Room" represents one location in the scenery of the game.  It is 
  * connected to other rooms via exits.  The exits are labelled north, 
  * east, south, west.  For each direction, the room stores a reference
  * to the neighboring room, or null if there is no exit in that direction.
  * 
- * @author  Michael Kölling, David J. Barnes and Bugslayer
+ * @author  Michael Kölling, David J. Barnes, Bugslayer and Maarten Dekker
  * @version 2017.03.30
  */
 class Room {
@@ -19,6 +19,8 @@ class Room {
     southExit : Room;
     eastExit : Room;
     westExit : Room;
+    upExit : Room;
+    downExit : Room;
 
     /**
      * Create a room described "description". Initially, it has
@@ -33,25 +35,35 @@ class Room {
     /**
      * Define the exits of this room.  Every direction either leads
      * to another room or is null (no exit there).
-     * @param north The north exit.
-     * @param east The east east.
-     * @param south The south exit.
-     * @param west The west exit.
-     */
-    setExits(north : Room, east : Room, south : Room, west : Room) : void {
-        if(north != null) {
-            this.northExit = north;
+     * @param noordelijk The north exit.
+     * @param oostelijk The east east.
+     * @param zuidelijk The south exit.
+     * @param westelijk The west exit.
+     * @param omhoog The stairs up.
+     * @param omlaag Down the stairs.     
+    **/
+    setExits(noordelijk : Room, oostelijk : Room, zuidelijk : Room, westelijk : Room, omhoog : Room, omlaag : Room) : void {
+        if(noordelijk != null) {
+            this.northExit = noordelijk;
         }
-        if(east != null) {
-            this.eastExit = east;
+        if(oostelijk != null) {
+            this.eastExit = oostelijk;
         }
-        if(south != null) {
-            this.southExit = south;
+        if(zuidelijk != null) {
+            this.southExit = zuidelijk;
         }
-        if(west != null) {
-            this.westExit = west;
+        if(westelijk != null) {
+            this.westExit = westelijk;
+        }
+        if(omhoog != null) {
+            this.upExit = omhoog;
+        }
+        if(omlaag != null) {
+            this.downExit = omlaag;
         }
     }
 
-}
-
+        setnpc(naam : npc) : void{
+        }
+    
+    }

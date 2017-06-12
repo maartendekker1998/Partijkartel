@@ -1,18 +1,14 @@
 /**
- * This class is part of the "Zorld of Wuul" application. 
- * "Zorld of Wuul" is a very simple, text based adventure game.  
+ * This class is part of the "Thiery Baudet" application. 
+ * "Thierry Baudet" is a very simple, text based adventure game.  
  * 
- * Users can walk around some scenery. That's all. It should really be 
- * extended to make it more interesting!
- * 
- * To play this game, create an instance of this class and call the "play"
- * method.
+ * Users can walk around some scenery. Talk to NPC's and collect items.
  * 
  * This main class creates and initialises all the others: it creates all
  * rooms, creates the parser and starts the game.  It also evaluates and
  * executes the commands that the parser returns.
  * 
- * @author  Michael Kölling, David J. Barnes and Bugslayer
+ * @author  Michael Kölling, David J. Barnes, Bugslayer and Maarten Dekker
  * @version 2017.03.30
  */
 class Game {
@@ -20,9 +16,11 @@ class Game {
     out : Printer;
 
     currentRoom : Room;
+    currentnpc : npc;
 
     isOn : boolean;
 
+    
     /**
      * Create the game and initialise its internal map.
      */
@@ -32,52 +30,82 @@ class Game {
         this.isOn = true;
         this.createRooms();
         this.printWelcome();
+        this.createnpcs();
+
     }
+
+        createnpcs() : void {
+            
+        }
 
     /**
      * Create all the rooms and link their exits together.
      */
-    createRooms() : void {
+        createRooms() : void {
+
+        // create npcs
+        this.createnpcs();{
+            var theo = new npc("Dit is Theo Hiddema");
+            var jesse = new npc("ik ben Jesse Klaver");
+            var mark = new npc("Dit is Mark Rutte");
+            var geert = new npc("Dit is Geert Wilders");
+        }
+
         // create the rooms
-        let outside = new Room("outside the main entrance of the university");
-        let theater = new Room("in a lecture theater");
-        let pub = new Room("in the campus pub");
-        let lab = new Room("in a computing lab");
-        let office = new Room("in the computing admin office");
+        var buitenhof = new Room("Je staat op het buitenhof");
+        var binnenhof = new Room("Je staat op het binnenhof");
+        var hofkapel = new Room("Je bent in de hofkapel");
+        var hofpoort = new Room("Je staat onder de hofpoort");
+        var minjus = new Room("Je bent in het oude ministerie van justitie");
+        var kamer = new Room("Je bent in de Tweede kamer der Staten Generaal");
+        var pers = new Room("Je staat op de persverdieping van de tweede kamer");
+        var minalg = new Room("Je bent in het ministerie van algemene zaken");
+        var torentje = new Room("Je bent in het torentje");
+        var schip = new Room("Je staat op het vlaggenschip van de renaissance vloot");
+        
+        // initialise npc locations
+        buitenhof.setnpc(theo);
 
         // initialise room exits
-        outside.setExits(null, theater, lab, pub);
-        theater.setExits(null, null, null, outside);
-        pub.setExits(null, outside, null, null);
-        lab.setExits(outside, office, null, null);
-        office.setExits(null, null, null, lab);
+        buitenhof.setExits(null, binnenhof, null, null, null, null);
+        binnenhof.setExits(hofkapel, null, hofpoort, buitenhof, null, null);
+        hofkapel.setExits(null, null, binnenhof, null, null, null);
+        hofpoort.setExits(binnenhof, minjus, null, null, null, null);
+        minjus.setExits(kamer, null, null, hofpoort, null, null);
+        kamer.setExits(null, minalg, minjus, null, pers, null);
+        pers.setExits(null, null, null, null, null, kamer)
+        minalg.setExits(torentje, null, null, kamer, null, null);
+        torentje.setExits(null, schip, minalg, null, null, null);
 
-        // spawn player outside
-        this.currentRoom = outside;
+        // spawn player outsideat
+        this.currentRoom = buitenhof;
     }
+
+    
+
 
     /**
      * Print out the opening message for the player.
      */
     printWelcome() : void {
         this.out.println();
-        this.out.println("Welcome to the Zorld of Wuul!");
-        this.out.println("Zorld of Wuul is a new, incredibly boring adventure game.");
-        this.out.println("Type 'help' if you need help.");
+        this.out.println("Welkom!");
+        this.out.println("Mijn naam is Thierry Baudet.");
+        this.out.println("Typ 'help' als je niet weet wat je moet doen.");
         this.out.println();
-        this.out.println("You are " + this.currentRoom.description);
-        this.out.print("Exits: ");
+        this.out.println(this.currentRoom.description);
+        this.out.print("Uitgangen: ");
         if(this.currentRoom.northExit != null) {
-            this.out.print("north ");
+            this.out.print("noordelijk ");
         }
         if(this.currentRoom.eastExit != null) {
-            this.out.print("east ");
+            this.out.print("oostelijk ");
         }
         if(this.currentRoom.southExit != null) {
-            this.out.print("south ");
+            this.out.print("zuidelijk ");
         }
         if(this.currentRoom.westExit != null) {
-            this.out.print("west ");
+            this.out.print("westelijk ");
         }
         this.out.println();
         this.out.print(">");
@@ -85,8 +113,8 @@ class Game {
 
     gameOver() : void {
         this.isOn = false;
-        this.out.println("Thank you for playing.  Good bye.");
-        this.out.println("Hit F5 to restart the game");
+        this.out.println("Dankjewel voor het spelen. Tot wederziens.");
+        this.out.println("Druk op F5 om het spel te herstarten");
     }
 
     /**
@@ -98,10 +126,10 @@ class Game {
      * @return true, if this command quits the game, false otherwise.
      */
     printError(params : string[]) : boolean {
-        this.out.println("I don't know what you mean...");
+        this.out.println("Ik weet niet wat je bedoelt...");
         this.out.println();
-        this.out.println("Your command words are:");
-        this.out.println("   go quit help");
+        this.out.println("Je commando's zijn:");
+        this.out.println("   ga kijk stop help");
         return false;
     }
 
@@ -115,14 +143,14 @@ class Game {
      */
     printHelp(params : string[]) : boolean {
         if(params.length > 0) {
-            this.out.println("Help what?");
+            this.out.println("Help met wat?");
             return false;
         }
-        this.out.println("You are lost. You are alone. You wander");
-        this.out.println("around at the university.");
+        this.out.println("Je loopt rond in Den Haag");
+        this.out.println("Vergaar kennis en red de maatschappij!");
         this.out.println();
-        this.out.println("Your command words are:");
-        this.out.println("   go quit help");
+        this.out.println("Je commando's zijn:");
+        this.out.println("   ga kijk stop help");
         return false;
     }
 
@@ -136,7 +164,7 @@ class Game {
     goRoom(params : string[]) : boolean {
         if(params.length == 0) {
             // if there is no second word, we don't know where to go...
-            this.out.println("Go where?");
+            this.out.println("Ga waarheen?");
             return;
         }
 
@@ -145,58 +173,85 @@ class Game {
         // Try to leave current room.
         let nextRoom = null;
         switch (direction) {
-            case "north" : 
+            case "noordelijk"   : 
                 nextRoom = this.currentRoom.northExit;
                 break;
-            case "east" : 
+            case "oostelijk"    : 
                 nextRoom = this.currentRoom.eastExit;
                 break;
-            case "south" : 
+            case "zuidelijk"    : 
                 nextRoom = this.currentRoom.southExit;
                 break;
-            case "west" : 
+            case "westelijk"    : 
                 nextRoom = this.currentRoom.westExit;
+                break;
+            case "omhoog"       :
+                nextRoom = this.currentRoom.upExit;
+                break;
+            case "omlaag"       :
+                nextRoom = this.currentRoom.downExit;
                 break;
         }
 
         if (nextRoom == null) {
-            this.out.println("There is no door!");
+            this.out.println("Er is geen deur of trap!");
         }
         else {
             this.currentRoom = nextRoom;
-            this.out.println("You are " + this.currentRoom.description);
-            this.out.print("Exits: ");
+            this.out.println(this.currentRoom.description);
+            this.out.print("Uitgangen: ");
             if(this.currentRoom.northExit != null) {
-                this.out.print("north ");
+                this.out.print("noordelijk ");
             }
             if(this.currentRoom.eastExit != null) {
-                this.out.print("east ");
+                this.out.print("oostelijk ");
             }
             if(this.currentRoom.southExit != null) {
-                this.out.print("south ");
+                this.out.print("zuidelijk ");
             }
             if(this.currentRoom.westExit != null) {
-                this.out.print("west ");
+                this.out.print("westelijk ");
+            }
+            if(this.currentRoom.upExit != null) {
+                this.out.print("omhoog");
+            }
+            if(this.currentRoom.downExit != null) {
+                this.out.print("omlaag");
             }
             this.out.println();
         }
         return false;
     }
-    
-    /** 
+
+   /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
      * 
      * @param params array containing all parameters
      * @return true, if this command quits the game, false otherwise.
-     */
+     */    
     quit(params : string[]) : boolean {
         if(params.length > 0) {
-            this.out.println("Quit what?");
+            this.out.println("Stop met wat?");
             return false;
         }
         else {
             return true;  // signal that we want to quit
         }
     }
+
+   /**
+     * Print out some help information.
+     * Here we print some stupid, cryptic message and a list of the 
+     * command words.
+     * 
+     * @param params array containing all parameters
+     * @return true, if this command quits the game, false otherwise.
+     */
+    look(params : string[]) : boolean {
+        this.out.println(this.currentRoom.description);
+        this.out.println(this.currentnpc.description);
+        return false;
+    }
+
 }

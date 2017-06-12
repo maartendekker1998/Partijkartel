@@ -1,6 +1,6 @@
 /**
- * This class is part of the "Zorld of Wuul" application. 
- * "Zorld of Wuul" is a very simple, text based adventure game.  
+ * This class is part of the "Thiery Baudet" application. 
+ * "Thierry Baudet" is a very simple, text based adventure game.  
  * 
  * This parser reads user input and tries to interpret it as an "Adventure"
  * command. Every time it is called it reads a line from the terminal and
@@ -9,7 +9,7 @@
  * The parser has a set of known command words. It checks user input against
  * the known commands, and invokes a relevant method on the Game object.
  * 
- * @author  Michael Kölling, David J. Barnes and Bugslayer
+ * @author  Michael Kölling, David J. Barnes, Bugslayer and Maarten Dekker
  * @version 2017.03.30
  */
 class Parser {
@@ -53,11 +53,14 @@ class Parser {
             case "help" : 
                 wantToQuit = this.game.printHelp(params);
                 break;
-            case "go" :
+            case "ga" :
                 wantToQuit = this.game.goRoom(params);
                 break;
-            case "quit" : 
+            case "stop" : 
                 wantToQuit = this.game.quit(params);
+                break;
+            case "kijk" :
+                wantToQuit = this.game.look(params);
                 break;
             default :
                 // print an error when command is not known
