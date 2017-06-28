@@ -8,7 +8,7 @@
  * rooms, creates the parser and starts the game.  It also evaluates and
  * executes the commands that the parser returns.
  * 
- * @author  Michael Kölling, David J. Barnes, Bugslayer and Maarten Dekker
+ * @author  Michael Kölling, David J. Barnes, Bugslayer and MaartenD
  * @version 2017.03.30
  */
 class Game {
@@ -16,9 +16,9 @@ class Game {
     out : Printer;
 
     currentRoom : Room;
-    currentnpc : npc;
-
+    intellect : number = 0;
     isOn : boolean;
+    talkedTo : string[] = [];
 
     
     /**
@@ -30,13 +30,7 @@ class Game {
         this.isOn = true;
         this.createRooms();
         this.printWelcome();
-        this.createnpcs();
-
     }
-
-        createnpcs() : void {
-            
-        }
 
     /**
      * Create all the rooms and link their exits together.
@@ -44,27 +38,41 @@ class Game {
         createRooms() : void {
 
         // create npcs
-        this.createnpcs();{
-            var theo = new npc("Dit is Theo Hiddema");
-            var jesse = new npc("ik ben Jesse Klaver");
-            var mark = new npc("Dit is Mark Rutte");
-            var geert = new npc("Dit is Geert Wilders");
-        }
+            var sylvana = new npc("Sylvana", "Sylvana Simons staat bij de haringkraam.");
+            var alexander = new npc("Alexander", "Alexander pechtold staat stoned weg te dromen bij de fontijn van graaf Willem II.");
+            var gertjan = new npc("Gert-Jan Segers", "Gert-Jan Segers is aan het bidden dat Pechtold de CU mee laat werken in de coalitievorming.")
+            var theo = new npc("Theo", "Theo Hiddema staat in de opening van het torentje en rijkt zijn hand al naar je uit.");
+            var marriane = new npc("Marriane", "Je komt Marriane Theime tegen in de gang.");
+            var mark = new npc("Mark","Mark Rutte is aanwezig.");
+            var jesse = new npc("Jesse","Je ziet Jesse Feras Klaver zitten.");
+            var geert = new npc("Geert","Geert Wilders staat al op je te wachten.");
+            var lodewijk = new npc("Lodewijk","Lodewijk Asscher zit met zijn telefoon te spelen op een bankje.");
+            var jfvd = new npc("JFVD","De JFVD staat al op je te wachten")
 
         // create the rooms
-        var buitenhof = new Room("Je staat op het buitenhof");
-        var binnenhof = new Room("Je staat op het binnenhof");
-        var hofkapel = new Room("Je bent in de hofkapel");
-        var hofpoort = new Room("Je staat onder de hofpoort");
-        var minjus = new Room("Je bent in het oude ministerie van justitie");
-        var kamer = new Room("Je bent in de Tweede kamer der Staten Generaal");
-        var pers = new Room("Je staat op de persverdieping van de tweede kamer");
-        var minalg = new Room("Je bent in het ministerie van algemene zaken");
-        var torentje = new Room("Je bent in het torentje");
-        var schip = new Room("Je staat op het vlaggenschip van de renaissance vloot");
+        var buitenhof = new Room("Je staat op het buitenhof", 0);
+        var binnenhof = new Room("Je staat op het binnenhof", 0);
+        var hofkapel = new Room("Je bent in de hofkapel", 0);
+        var hofpoort = new Room("Je staat onder de hofpoort", 0);
+        var minjus = new Room("Je bent in het Departement van justitie", 0);
+        var kamer = new Room("Je bent in de Tweede kamer der Staten Generaal", 0);
+        var pers = new Room("Je staat op de persverdieping van de tweede kamer", 0);
+        var minalg = new Room("Je bent in het ministerie van algemene zaken", 0);
+        var torentje = new Room("Je bent in het torentje", 0);
+        var mauritshuis = new Room("Je bent in het Mauritshuis", 0);
+        var schip = new Room("Je staat op het vlaggenschip van de renaissance vloot", 0);
         
-        // initialise npc locations
-        buitenhof.setnpc(theo);
+             // initialise npc locations
+              buitenhof.setnpc(sylvana);
+              binnenhof.setnpc(alexander);
+              hofkapel.setnpc(gertjan);
+              hofpoort.setnpc(geert);
+              minjus.setnpc(marriane);
+              kamer.setnpc(mark);
+              pers.setnpc(jesse);
+              minalg.setnpc(lodewijk);
+              torentje.setnpc(theo);
+              mauritshuis.setnpc(jfvd);
 
         // initialise room exits
         buitenhof.setExits(null, binnenhof, null, null, null, null);
@@ -75,14 +83,13 @@ class Game {
         kamer.setExits(null, minalg, minjus, null, pers, null);
         pers.setExits(null, null, null, null, null, kamer)
         minalg.setExits(torentje, null, null, kamer, null, null);
-        torentje.setExits(null, schip, minalg, null, null, null);
+        torentje.setExits(null, mauritshuis, minalg, null, null, null);
+        mauritshuis.setExits(schip, null, null, torentje, null, null);
+        schip.setExits(null, null, mauritshuis, null, null, null);
 
         // spawn player outsideat
         this.currentRoom = buitenhof;
     }
-
-    
-
 
     /**
      * Print out the opening message for the player.
@@ -94,6 +101,7 @@ class Game {
         this.out.println("Typ 'help' als je niet weet wat je moet doen.");
         this.out.println();
         this.out.println(this.currentRoom.description);
+        console.log(this.currentRoom);
         this.out.print("Uitgangen: ");
         if(this.currentRoom.northExit != null) {
             this.out.print("noordelijk ");
@@ -129,7 +137,7 @@ class Game {
         this.out.println("Ik weet niet wat je bedoelt...");
         this.out.println();
         this.out.println("Je commando's zijn:");
-        this.out.println("   ga kijk stop help");
+        this.out.println("   ga kijk praat intellect stop help");
         return false;
     }
 
@@ -150,7 +158,7 @@ class Game {
         this.out.println("Vergaar kennis en red de maatschappij!");
         this.out.println();
         this.out.println("Je commando's zijn:");
-        this.out.println("   ga kijk stop help");
+        this.out.println("   ga kijk praat intellect stop help");
         return false;
     }
 
@@ -165,6 +173,7 @@ class Game {
         if(params.length == 0) {
             // if there is no second word, we don't know where to go...
             this.out.println("Ga waarheen?");
+            this.out.println("noordelijk, oostelijk, zuidelijk of westelijk.");
             return;
         }
 
@@ -197,6 +206,13 @@ class Game {
             this.out.println("Er is geen deur of trap!");
         }
         else {
+
+            //check intellect requirement
+            if (this.intellect < nextRoom.intellectRequirement) {
+                this.out.println("Je hebt "+nextRoom.intellectRequirement+" intellect nodig om deze kamer in te gaan.");
+                return false;
+            }
+
             this.currentRoom = nextRoom;
             this.out.println(this.currentRoom.description);
             this.out.print("Uitgangen: ");
@@ -250,7 +266,52 @@ class Game {
      */
     look(params : string[]) : boolean {
         this.out.println(this.currentRoom.description);
-        this.out.println(this.currentnpc.description);
+        if (this.currentRoom.npc != null)
+        this.out.println(this.currentRoom.npc.description);
+        return false;
+    }
+
+    talk(params :string[]) : boolean {
+
+        let tekst = "";
+
+        if (this.currentRoom.npc == null)
+        {
+            this.out.println("Je begint een gesprek...");
+            this.out.println("...maar je realizeert je dat er niemand anders in deze kamer is.");
+            return false;
+        }
+        
+        switch(this.currentRoom.npc.name) {
+            case "Geert":
+                tekst = "je moeder is lelijk."
+            break;
+            case "Theo":
+                if (this.hasTalkedTo("Theo")) {
+                tekst = "Laat me ev en mn sigaretje oproken lul";
+                } else {
+                tekst = "Jesse klaver stinkt (+kankerveel intellect)"
+                this.intellect += 1023423;
+                }
+            break;
+        }
+
+        this.out.println(this.currentRoom.npc.name+": "+tekst);
+        this.talkedTo.push(this.currentRoom.npc.name);
+        
+        return false;
+    }
+
+    public hasTalkedTo(name: string) {
+        for (let i = 0;i<this.talkedTo.length;i++) {
+            if (this.talkedTo[i] == name)
+            return true;
+        }
+        return false;
+    }
+
+    public checkIntellect(params : string[]) : boolean {
+        this.out.println("Je hebt "+this.intellect+" kennis vergaard.");
         return false;
     }
 

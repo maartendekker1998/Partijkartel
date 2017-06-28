@@ -3,6 +3,7 @@
  */
 
 class npc {
+        name: string;
         description : string;
             
     /**
@@ -10,7 +11,8 @@ class npc {
      * like "Jesse Klaver".
      * @param description The npc's description.
      */
-    constructor(description : string) {
+    constructor(name: string, description : string) {
+        this.name = name;
         this.description = description;
     }
 }

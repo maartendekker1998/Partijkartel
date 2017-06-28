@@ -9,7 +9,7 @@
  * The parser has a set of known command words. It checks user input against
  * the known commands, and invokes a relevant method on the Game object.
  * 
- * @author  Michael Kölling, David J. Barnes, Bugslayer and Maarten Dekker
+ * @author  Michael Kölling, David J. Barnes, Bugslayer and MaartenD
  * @version 2017.03.30
  */
 class Parser {
@@ -61,6 +61,12 @@ class Parser {
                 break;
             case "kijk" :
                 wantToQuit = this.game.look(params);
+                break;
+            case "praat" :
+                wantToQuit = this.game.talk(params);
+                break;
+            case "intellect" :
+                wantToQuit = this.game.checkIntellect(params)
                 break;
             default :
                 // print an error when command is not known

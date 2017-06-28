@@ -9,7 +9,7 @@
  * east, south, west.  For each direction, the room stores a reference
  * to the neighboring room, or null if there is no exit in that direction.
  * 
- * @author  Michael Kölling, David J. Barnes, Bugslayer and Maarten Dekker
+ * @author  Michael Kölling, David J. Barnes, Bugslayer and MaartenD
  * @version 2017.03.30
  */
 class Room {
@@ -21,6 +21,8 @@ class Room {
     westExit : Room;
     upExit : Room;
     downExit : Room;
+    npc : npc;
+    intellectRequirement : number = 0;
 
     /**
      * Create a room described "description". Initially, it has
@@ -28,8 +30,9 @@ class Room {
      * "an open court yard".
      * @param description The room's description.
      */
-    constructor(description : string) {
+    constructor(description : string, req : number) {
         this.description = description;
+        this.intellectRequirement = req;
     }
 
     /**
@@ -63,7 +66,8 @@ class Room {
         }
     }
 
-        setnpc(naam : npc) : void{
+        setnpc(n : npc) : void {
+            this.npc = n;
         }
     
     }
