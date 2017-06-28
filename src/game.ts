@@ -54,10 +54,10 @@ class Game {
         var binnenhof = new Room("Je staat op het binnenhof", 0);
         var hofkapel = new Room("Je bent in de hofkapel", 0);
         var hofpoort = new Room("Je staat onder de hofpoort", 0);
-        var minjus = new Room("Je bent in het Departement van justitie", 0);
+        var minjus = new Room("Je bent in het Departement van justitie", 35);
         var kamer = new Room("Je bent in de Tweede kamer der Staten Generaal", 0);
         var pers = new Room("Je staat op de persverdieping van de tweede kamer", 0);
-        var minalg = new Room("Je bent in het ministerie van algemene zaken", 0);
+        var minalg = new Room("Je bent in het ministerie van algemene zaken", 60);
         var torentje = new Room("Je bent in het torentje", 0);
         var mauritshuis = new Room("Je bent in het Mauritshuis", 0);
         var schip = new Room("Je staat op het vlaggenschip van de renaissance vloot", 0);
@@ -98,6 +98,8 @@ class Game {
         this.out.println();
         this.out.println("Welkom!");
         this.out.println("Mijn naam is Thierry Baudet.");
+        this.out.println("Je loopt rond in Den Haag");
+        this.out.println("Vergaar kennis en red de maatschappij!");
         this.out.println("Typ 'help' als je niet weet wat je moet doen.");
         this.out.println();
         this.out.println(this.currentRoom.description);
@@ -273,7 +275,9 @@ class Game {
 
     talk(params :string[]) : boolean {
 
-        let tekst = "";
+        let standpunt = "";
+        let reactie = "";
+        let intellect = "";
 
         if (this.currentRoom.npc == null)
         {
@@ -283,20 +287,111 @@ class Game {
         }
         
         switch(this.currentRoom.npc.name) {
+            case "Sylvana":
+                if(this.hasTalkedTo("Sylvana")) {
+                standpunt = "Sylvana: Racist!"
+                } else {
+                standpunt = "Sylvana: Hey Thierry, weet je wat een goed idee is, een diversiteitsquotem. "
+                reactie =   "Thierry: Nee dat is het niet, allochtonen moeten net als de rest worden aangenomen vanwege hun kwalitieiten, als er nu te weinig diversiteit is betekent dat dat er te weinig allochtonen zijn met topkwalitieiten. "
+                intellect = "Met mevrouw Simons valt niet te communiceren (+0 intellect)"
+                this.intellect += 0;
+                }
+            break;            
+            case "Alexander":
+                if (this.hasTalkedTo("Alexander")) {
+                standpunt = "Alexander: Hou op straks ga ik bad.";
+                } else {
+                standpunt = "Thierry: Hallo meneer Pechtold, wat is uw mening omtrent het legaliseren van softdrugs?"
+                reactie = "Alexander: Coffeeshophouders zijn gedwongen schimmige zaken te doen. Met mijn wet moet er aan dat paradoxale onderscheid een einde komen!"
+                intellect = "Pechtold mag geen verstand hebben van de EU, maar zijn drugsbeleid is goed (+10 intellect)"
+                this.intellect += 10;
+            }
+            case "Gert-Jan":
+                if (this.hasTalkedTo("Gert-Jan")) {
+                standpunt = "Gert-Jan: Amen .";
+                } else {
+                standpunt = "Hey Thierry, zit voldoen onze uitgaven aan defensie al aan de NAVO-norm?"
+                reactie = "Hé Gert, laatste keer dat ik keek nog niet hoor."
+                intellect = "Je word er aan herrinderd dat het geen slim idee is om een vrouw in een topfunctie te stoppen (+10 intellect)"
+                this.intellect += 15;
+                }
+            
+            break;
             case "Geert":
-                tekst = "je moeder is lelijk."
+                if (this.hasTalkedTo("Geert")) {
+                standpunt = "Geert: Doe eens normaal man";
+                } else {
+                standpunt = "Geert: Hoi Thierry, wanneer stopt die massa immigratie nou eens."
+                reactie = "Thierry: Weet ik niet, maar als die land uw partijprogramma volgen komen we er vast wel"
+                intellect = "Samen kijken Wilders en Baudet naar het A4tje van de PVV op zoek naar de oplossing. Ze konden helaas geen antwoord vinden op de vraag, er was een tekort aan onderbouwing. (+15 intellect)"
+                this.intellect += 10;
+                }
+            break;
+            case "Marriane":
+                if (this.hasTalkedTo("Marriane")) {
+                standpunt = "Marriane: Ga eens wat dieren beschermen inplaats van mij lastig vallen.";
+                } else {
+                standpunt = "Marriane: Thierry, wat vind jij nou eigenlijk van TTIP en CETA?"
+                reactie = "Theirry: We leven in een democratie, daarom moeten er over de internationale handelsverdragen referenda komen."
+                intellect = "Desondanks de PvdD een zielige one-issue partij is vallen ze een klein beetje serieus te nemen (+10 intellect) "
+                this.intellect += 10;
+                }
+            break;
+            case "Mark":
+                if (this.hasTalkedTo("Mark")) {
+                standpunt = "Mark: Pleur op!";
+                } else {
+                standpunt = "Thierry: Hoi Mark, ik heb een vraagje. Het forum is voor een handhaving van de HRA totdat lagere belastingtarieven zijn ingevoerd."
+                reactie = "Mark: Tijd om de belastingen te verlagen. Heel normaal"
+                intellect = "Dit sluit aan bij het fvd standpunt 'Radicale vereenvoudiging belastingstelsel'(+15 intellect) "
+                this.intellect += 15;
+                }
+            break;
+            case "Jesse":
+                if (this.hasTalkedTo("Jesse")) {
+                standpunt = "Jesse: huilie huilie";
+                } else {
+                standpunt = "Jesse: Waarom lach je nou om ons partijprogramma? Het is goed doordacht en doorgerekend."
+                reactie = "Thierry: Wilders heeft het beter gedaan dan jullie, hij heeft het bij één pagina aan verbale kots gehouden."
+                intellect = "Groenslinks is echt kansloos, hier valt geen intellect te vergaren (+0 intelect)"
+                this.intellect += 0;
+                }
+            break;
+            case "Lodewijk":
+                if (this.hasTalkedTo("Lodewijk")) {
+                standpunt = "";
+                } else {
+                standpunt = "Lodewijk: Het regent uitkeringen, wat is het mooi!"
+                reactie = "Thierry: Meneer Asscher, het hoort een sociale vangnet te zijn, geen sociale hangmat."
+                intellect = "Die uitspraak was zo goed dat je je eigen intellect hebt vergroot (+10)"
+                this.intellect += 10;
+                }
             break;
             case "Theo":
                 if (this.hasTalkedTo("Theo")) {
-                tekst = "Laat me ev en mn sigaretje oproken lul";
+                standpunt = "Theo: Laat me even mijn sigaret oproken";
                 } else {
-                tekst = "Jesse klaver stinkt (+kankerveel intellect)"
-                this.intellect += 1023423;
+                standpunt = "Theo: Beste Theirry wat goed dat je er bent, ik heb de stekker net uit de baantjescarousel getrokken, we moeten snel gaan. Het vlaggenschip ligt op je te wachten in de hofvijver aan het mauritshuis"
+                reactie = "Thierry: Dankje Theo, we hebben geen tijd te verliezen"
+                intellect = "Dit is een vooruitgang voor heel Nederland (+30)"
+                this.intellect += 30; 
+                }
+            break;
+            case "JFVD":
+                if (this.hasTalkedTo("JFVD")) {
+                standpunt = "THIERRY!, THIERRY!, THIERRY!";
+                } else {
+                standpunt = "Frederik Jansen: Betreed het schip, snel, het kartel zit al achter je aan."
+                reactie = "Thierry draait zich nog een keer om terwijl hij op de loopplank staat en hij ziet Mark Rutte met gebalde vuisten naar hem wijzen. Baudet's haren wapperen in de wind van democratie terwijl de zeilen van het vlaggenschip van de rainescancevloot gehesen worden..."
+                intellect = "Gefeliciteerd, je hebt het spel uitgespeeld, het partijkartel is nog lang niet opgebroken. Dit kan alleen door FvD te steunen. Ga naar 'forumvoordemocratie.nl' voor meer informatie"
+                this.intellect += 0;
                 }
             break;
         }
 
-        this.out.println(this.currentRoom.npc.name+": "+tekst);
+        this.out.println(standpunt);
+        this.out.println(reactie);
+        this.out.println(intellect);
         this.talkedTo.push(this.currentRoom.npc.name);
         
         return false;
