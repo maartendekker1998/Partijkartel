@@ -40,12 +40,12 @@ class Game {
         // create npcs
             var sylvana = new npc("Sylvana", "Sylvana Simons staat bij de haringkraam.");
             var alexander = new npc("Alexander", "Alexander pechtold staat stoned weg te dromen bij de fontijn van graaf Willem II.");
-            var gertjan = new npc("Gert-Jan Segers", "Gert-Jan Segers is aan het bidden dat Pechtold de CU mee laat werken in de coalitievorming.")
+            var gertjan = new npc("Gert-Jan", "Gert-Jan Segers is aan het bidden dat Pechtold de CU mee laat werken in de coalitievorming.")
             var theo = new npc("Theo", "Theo Hiddema staat in de opening van het torentje en rijkt zijn hand al naar je uit.");
             var marriane = new npc("Marriane", "Je komt Marriane Theime tegen in de gang.");
             var mark = new npc("Mark","Mark Rutte is aanwezig.");
             var jesse = new npc("Jesse","Je ziet Jesse Feras Klaver zitten.");
-            var geert = new npc("Geert","Geert Wilders staat al op je te wachten.");
+            var geert = new npc("Geert","Geert Wilders staat hier ook.");
             var lodewijk = new npc("Lodewijk","Lodewijk Asscher zit met zijn telefoon te spelen op een bankje.");
             var jfvd = new npc("JFVD","De JFVD staat al op je te wachten")
 
@@ -60,7 +60,6 @@ class Game {
         var minalg = new Room("Je bent in het ministerie van algemene zaken", 60);
         var torentje = new Room("Je bent in het torentje", 0);
         var mauritshuis = new Room("Je bent in het Mauritshuis", 0);
-        var schip = new Room("Je staat op het vlaggenschip van de renaissance vloot", 0);
         
              // initialise npc locations
               buitenhof.setnpc(sylvana);
@@ -84,8 +83,7 @@ class Game {
         pers.setExits(null, null, null, null, null, kamer)
         minalg.setExits(torentje, null, null, kamer, null, null);
         torentje.setExits(null, mauritshuis, minalg, null, null, null);
-        mauritshuis.setExits(schip, null, null, torentje, null, null);
-        schip.setExits(null, null, mauritshuis, null, null, null);
+        mauritshuis.setExits(null, null, null, torentje, null, null);
 
         // spawn player outsideat
         this.currentRoom = buitenhof;
@@ -164,84 +162,7 @@ class Game {
         return false;
     }
 
-    /** 
-     * Try to go in one direction. If there is an exit, enter
-     * the new room, otherwise print an error message.
-     * 
-     * @param params array containing all parameters
-     * @return true, if this command quits the game, false otherwise.
-     */
-    goRoom(params : string[]) : boolean {
-        if(params.length == 0) {
-            // if there is no second word, we don't know where to go...
-            this.out.println("Ga waarheen?");
-            this.out.println("noordelijk, oostelijk, zuidelijk of westelijk.");
-            return;
-        }
-
-        let direction = params[0];
-
-        // Try to leave current room.
-        let nextRoom = null;
-        switch (direction) {
-            case "noordelijk"   : 
-                nextRoom = this.currentRoom.northExit;
-                break;
-            case "oostelijk"    : 
-                nextRoom = this.currentRoom.eastExit;
-                break;
-            case "zuidelijk"    : 
-                nextRoom = this.currentRoom.southExit;
-                break;
-            case "westelijk"    : 
-                nextRoom = this.currentRoom.westExit;
-                break;
-            case "omhoog"       :
-                nextRoom = this.currentRoom.upExit;
-                break;
-            case "omlaag"       :
-                nextRoom = this.currentRoom.downExit;
-                break;
-        }
-
-        if (nextRoom == null) {
-            this.out.println("Er is geen deur of trap!");
-        }
-        else {
-
-            //check intellect requirement
-            if (this.intellect < nextRoom.intellectRequirement) {
-                this.out.println("Je hebt "+nextRoom.intellectRequirement+" intellect nodig om deze kamer in te gaan.");
-                return false;
-            }
-
-            this.currentRoom = nextRoom;
-            this.out.println(this.currentRoom.description);
-            this.out.print("Uitgangen: ");
-            if(this.currentRoom.northExit != null) {
-                this.out.print("noordelijk ");
-            }
-            if(this.currentRoom.eastExit != null) {
-                this.out.print("oostelijk ");
-            }
-            if(this.currentRoom.southExit != null) {
-                this.out.print("zuidelijk ");
-            }
-            if(this.currentRoom.westExit != null) {
-                this.out.print("westelijk ");
-            }
-            if(this.currentRoom.upExit != null) {
-                this.out.print("omhoog");
-            }
-            if(this.currentRoom.downExit != null) {
-                this.out.print("omlaag");
-            }
-            this.out.println();
-        }
-        return false;
-    }
-
-   /** 
+     /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
      * 
@@ -294,7 +215,6 @@ class Game {
                 standpunt = "Sylvana: Hey Thierry, weet je wat een goed idee is, een diversiteitsquotem. "
                 reactie =   "Thierry: Nee dat is het niet, allochtonen moeten net als de rest worden aangenomen vanwege hun kwalitieiten, als er nu te weinig diversiteit is betekent dat dat er te weinig allochtonen zijn met topkwalitieiten. "
                 intellect = "Met mevrouw Simons valt niet te communiceren (+0 intellect)"
-                this.intellect += 0;
                 }
             break;            
             case "Alexander":
@@ -305,17 +225,17 @@ class Game {
                 reactie = "Alexander: Coffeeshophouders zijn gedwongen schimmige zaken te doen. Met mijn wet moet er aan dat paradoxale onderscheid een einde komen!"
                 intellect = "Pechtold mag geen verstand hebben van de EU, maar zijn drugsbeleid is goed (+10 intellect)"
                 this.intellect += 10;
-            }
+                }
+            break;
             case "Gert-Jan":
                 if (this.hasTalkedTo("Gert-Jan")) {
                 standpunt = "Gert-Jan: Amen .";
                 } else {
-                standpunt = "Hey Thierry, zit voldoen onze uitgaven aan defensie al aan de NAVO-norm?"
+                standpunt = "Hey Thierry, voldoen onze uitgaven aan defensie al aan de NAVO-norm?"
                 reactie = "Hé Gert, laatste keer dat ik keek nog niet hoor."
-                intellect = "Je word er aan herrinderd dat het geen slim idee is om een vrouw in een topfunctie te stoppen (+10 intellect)"
+                intellect = "Je word er aan herinnert waarom het geen slim idee is om een vrouw minister van defensie te maken (+10 intellect)"
                 this.intellect += 15;
-                }
-            
+                }            
             break;
             case "Geert":
                 if (this.hasTalkedTo("Geert")) {
@@ -352,18 +272,17 @@ class Game {
                 standpunt = "Jesse: huilie huilie";
                 } else {
                 standpunt = "Jesse: Waarom lach je nou om ons partijprogramma? Het is goed doordacht en doorgerekend."
-                reactie = "Thierry: Wilders heeft het beter gedaan dan jullie, hij heeft het bij één pagina aan verbale kots gehouden."
+                reactie = "Thierry: Wilders heeft het beter gedaan dan GroenLinks, hij heeft het bij één pagina aan verbaal braaksel gelaten."
                 intellect = "Groenslinks is echt kansloos, hier valt geen intellect te vergaren (+0 intelect)"
-                this.intellect += 0;
                 }
             break;
             case "Lodewijk":
                 if (this.hasTalkedTo("Lodewijk")) {
-                standpunt = "";
+                standpunt = "Lodewijk: Heb jij mijn zetels gezien, ik ben ze kwijt.";
                 } else {
                 standpunt = "Lodewijk: Het regent uitkeringen, wat is het mooi!"
                 reactie = "Thierry: Meneer Asscher, het hoort een sociale vangnet te zijn, geen sociale hangmat."
-                intellect = "Die uitspraak was zo goed dat je je eigen intellect hebt vergroot (+10)"
+                intellect = "Die uitspraak was zo goed dat je je eigen intellect hebt verrijkt (+10)"
                 this.intellect += 10;
                 }
             break;
@@ -383,8 +302,7 @@ class Game {
                 } else {
                 standpunt = "Frederik Jansen: Betreed het schip, snel, het kartel zit al achter je aan."
                 reactie = "Thierry draait zich nog een keer om terwijl hij op de loopplank staat en hij ziet Mark Rutte met gebalde vuisten naar hem wijzen. Baudet's haren wapperen in de wind van democratie terwijl de zeilen van het vlaggenschip van de rainescancevloot gehesen worden..."
-                intellect = "Gefeliciteerd, je hebt het spel uitgespeeld, het partijkartel is nog lang niet opgebroken. Dit kan alleen door FvD te steunen. Ga naar 'forumvoordemocratie.nl' voor meer informatie"
-                this.intellect += 0;
+                intellect = "Gefeliciteerd, je hebt het spel uitgespeeld, het partijkartel is nog lang niet opgebroken. Dit kan alleen door FvD te steunen. Ga naar 'forumvoordemocratie.nl' voor meer informatie. Typ 'stop' om het spel af te sluiten"
                 }
             break;
         }

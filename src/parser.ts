@@ -15,6 +15,7 @@
 class Parser {
     input : HTMLInputElement;
     game : Game;
+    commands : { [key: string]: Command};
 
     /**
      * Creates the parser object.
@@ -25,6 +26,7 @@ class Parser {
     constructor(game: Game, input : HTMLInputElement) {
         this.game = game;
         this.input = input;
+        this.commands["ga"] = new Ga(this.game);
         input.onkeyup = (e) => { // event handler function
             if (e.keyCode == 13 && this.game.isOn) {
                 // Invoke parse method wehen user pressed enter
@@ -46,37 +48,23 @@ class Parser {
     parse(words : string[]) : void {
         let wantToQuit = false;
         let params = words.slice(1);
-        switch (words[0]) {
-            case "" :
-                // Do nothing when user enters nothing 
-                break
-            case "help" : 
-                wantToQuit = this.game.printHelp(params);
-                break;
-            case "ga" :
-                wantToQuit = this.game.goRoom(params);
-                break;
-            case "stop" : 
-                wantToQuit = this.game.quit(params);
-                break;
-            case "kijk" :
-                wantToQuit = this.game.look(params);
-                break;
-            case "praat" :
-                wantToQuit = this.game.talk(params);
-                break;
-            case "intellect" :
-                wantToQuit = this.game.checkIntellect(params)
-                break;
-            default :
-                // print an error when command is not known
-                wantToQuit = this.game.printError(params);
-
+        if (words[0] == "")
+        {
+            return;
         }
+
+        // Find the command to execute
+        let command : Command;
+        command = this.commands[words[0]];
+       
+        wantToQuit = command.execute(params);
+
         if (wantToQuit) {
             this.input.disabled = true;
             this.game.gameOver();
         }
+
+         
     }
 
 }
