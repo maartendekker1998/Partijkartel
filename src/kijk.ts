@@ -1,4 +1,5 @@
 class Kijk extends Command{
+
     execute(params : string[]) : boolean {
         this.game.out.println(this.game.currentRoom.description);
         if (this.game.currentRoom.npc != null)

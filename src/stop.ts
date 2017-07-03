@@ -1,4 +1,4 @@
-class Stop extends Command{
+class Stop extends Command{ 
     execute(params : string[]) : boolean {
         if(params.length > 0) {
             this.game.out.println("Stop met wat?");

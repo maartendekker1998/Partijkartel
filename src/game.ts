@@ -1,16 +1,3 @@
-/**
- * This class is part of the "Thiery Baudet" application. 
- * "Thierry Baudet" is a very simple, text based adventure game.  
- * 
- * Users can walk around some scenery. Talk to NPC's and collect items.
- * 
- * This main class creates and initialises all the others: it creates all
- * rooms, creates the parser and starts the game.  It also evaluates and
- * executes the commands that the parser returns.
- * 
- * @author  Michael Kölling, David J. Barnes, Bugslayer and MaartenD
- * @version 2017.03.30
- */
 class Game {
     parser : Parser;
     out : Printer;

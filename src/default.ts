@@ -1,5 +1,5 @@
 class Default extends Command{
-
+    
     execute(params : string[]) : boolean {
         this.game.out.println("Ik weet niet wat je bedoelt...");
         this.game.out.println();

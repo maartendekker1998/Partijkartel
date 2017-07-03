@@ -1,17 +1,3 @@
-/**
- * Class Room - a room in an adventure game.
- *
- * This class is part of the "Thiery Baudet" application. 
- * "Thierry Baudet" is a very simple, text based adventure game.   
- *
- * A "Room" represents one location in the scenery of the game.  It is 
- * connected to other rooms via exits.  The exits are labelled north, 
- * east, south, west.  For each direction, the room stores a reference
- * to the neighboring room, or null if there is no exit in that direction.
- * 
- * @author  Michael Kölling, David J. Barnes, Bugslayer and MaartenD
- * @version 2017.03.30
- */
 class Room {
     description : string;
 
@@ -66,8 +52,8 @@ class Room {
         }
     }
 
-        setnpc(n : npc) : void {
-            this.npc = n;
-        }
+    setnpc(n : npc) : void {
+          this.npc = n;
+    }
     
     }

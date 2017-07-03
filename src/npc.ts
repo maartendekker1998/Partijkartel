@@ -1,7 +1,3 @@
-/**
- * @author  Maarten Dekker
- */
-
 class npc {
         name: string;
         description : string;
