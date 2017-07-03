@@ -15,7 +15,8 @@
 class Parser {
     input : HTMLInputElement;
     game : Game;
-    commands : { [key: string]: Command};
+    commands : { [key: string]: Command}={};
+    default : Default;
 
     /**
      * Creates the parser object.
@@ -26,7 +27,14 @@ class Parser {
     constructor(game: Game, input : HTMLInputElement) {
         this.game = game;
         this.input = input;
+        this.default = new Default(game);
         this.commands["ga"] = new Ga(this.game);
+        this.commands['kijk'] = new Kijk(this.game);
+        this.commands['praat'] = new Praat(this.game);
+        this.commands['intellect'] = new Intellect(this.game);
+        this.commands['stop'] = new Stop(this.game);
+        this.commands['help'] = new Help(this.game);
+
         input.onkeyup = (e) => { // event handler function
             if (e.keyCode == 13 && this.game.isOn) {
                 // Invoke parse method wehen user pressed enter
@@ -56,6 +64,11 @@ class Parser {
         // Find the command to execute
         let command : Command;
         command = this.commands[words[0]];
+
+         if ( command == null )
+            {
+                this.default;
+            }
        
         wantToQuit = command.execute(params);
 

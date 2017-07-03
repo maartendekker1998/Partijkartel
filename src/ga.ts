@@ -1,6 +1,6 @@
 class Ga extends Command{
 
-goRoom(params : string[]) : boolean {
+execute(params : string[]) : boolean {
         if(params.length == 0) {
             // if there is no second word, we don't know where to go...
             this.game.out.println("Ga waarheen?");
