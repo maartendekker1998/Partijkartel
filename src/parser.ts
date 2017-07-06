@@ -62,7 +62,6 @@ class Parser {
             this.input.disabled = true;
             this.game.gameOver();
         }
-
          
     }
 

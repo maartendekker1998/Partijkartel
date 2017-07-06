@@ -28,7 +28,7 @@ class Praat extends Command{
                 } else {
                 standpunt = "Thierry: Hallo meneer Pechtold, wat is uw mening omtrent het legaliseren van softdrugs?"
                 reactie = "Alexander: Coffeeshophouders zijn gedwongen schimmige zaken te doen. Met mijn wet moet er aan dat paradoxale onderscheid een einde komen!"
-                intellect = "Pechtold mag geen verstand hebben van de EU, maar zijn drugsbeleid is goed (+10 intellect)"
+                intellect = "Pechtold mag geen verstand hebben van de EU, maar zijn drugsbeleid is degelijk. (+10 intellect)"
                 this.game.intellect += 10;
                 }
             break;
@@ -68,7 +68,7 @@ class Praat extends Command{
                 } else {
                 standpunt = "Thierry: Hoi Mark, ik heb een vraagje. Het forum is voor een handhaving van de HRA totdat lagere belastingtarieven zijn ingevoerd."
                 reactie = "Mark: Tijd om de belastingen te verlagen. Heel normaal"
-                intellect = "Dit sluit aan bij het fvd standpunt 'Radicale vereenvoudiging belastingstelsel'(+15 intellect) "
+                intellect = "Dit sluit aan bij het FvD standpunt 'Radicale vereenvoudiging belastingstelsel'(+15 intellect) "
                 this.game.intellect += 15;
                 }
             break;
@@ -78,7 +78,7 @@ class Praat extends Command{
                 } else {
                 standpunt = "Jesse: Waarom lach je nou om ons partijprogramma? Het is goed doordacht en doorgerekend."
                 reactie = "Thierry: Wilders heeft het beter gedaan dan GroenLinks, hij heeft het bij één pagina aan verbaal braaksel gelaten."
-                intellect = "Groenslinks is echt kansloos, hier valt geen intellect te vergaren (+0 intelect)"
+                intellect = "Groenlinks is echt kansloos, hier valt geen intellect te vergaren (+0 intellect)"
                 }
             break;
             case "Lodewijk":
@@ -87,7 +87,7 @@ class Praat extends Command{
                 } else {
                 standpunt = "Lodewijk: Het regent uitkeringen, wat is het mooi!"
                 reactie = "Thierry: Meneer Asscher, het hoort een sociale vangnet te zijn, geen sociale hangmat."
-                intellect = "Die uitspraak was zo goed dat je je eigen intellect hebt verrijkt (+10)"
+                intellect = "Die uitspraak was zo goed dat je je eigen intellect hebt verrijkt (+10 intellect)"
                 this.game.intellect += 10;
                 }
             break;
@@ -95,9 +95,9 @@ class Praat extends Command{
                 if (this.hasTalkedTo("Theo")) {
                 standpunt = "Theo: Laat me even mijn sigaret oproken";
                 } else {
-                standpunt = "Theo: Beste Theirry wat goed dat je er bent, ik heb de stekker net uit de baantjescarousel getrokken, we moeten snel gaan. Het vlaggenschip ligt op je te wachten in de hofvijver aan het mauritshuis"
+                standpunt = "Theo: Beste Thierry wat goed dat je er bent, ik heb de stekker net uit het baantjescarousel getrokken, we moeten snel gaan. Het vlaggenschip ligt op je te wachten in de hofvijver aan het mauritshuis"
                 reactie = "Thierry: Dankje Theo, we hebben geen tijd te verliezen"
-                intellect = "Dit is een vooruitgang voor heel Nederland (+30)"
+                intellect = "Dit is een vooruitgang voor heel Nederland (+30 intellect)"
                 this.game.intellect += 30; 
                 }
             break;
@@ -110,12 +110,27 @@ class Praat extends Command{
                 intellect = "Gefeliciteerd, je hebt het spel uitgespeeld, het partijkartel is nog lang niet opgebroken. Dit kan alleen door FvD te steunen. Ga naar 'forumvoordemocratie.nl' voor meer informatie. Typ 'stop' om het spel af te sluiten"
                 }
             break;
-        }
+        }   
 
+        if(standpunt != "")
         this.game.out.println(standpunt);
+        if(reactie != "")
         this.game.out.println(reactie);
+        if(intellect != "")
         this.game.out.println(intellect);
         this.game.talkedTo.push(this.game.currentRoom.npc.name);
+
+        if (this.game.intellect == 35 ){
+             this.game.out.println("Je hebt genoeg intellect vergaard om toegang tot het Departement van Justitie te krijgen.");
+        }
+        
+        if (this.game.intellect == 60 ){
+             this.game.out.println("Je hebt genoeg intellect vergaard om toegang tot het Ministerie van algemene zaken te krijgen.");
+        }
+        if (this.game.intellect == 100){
+            this.game.out.println("Je hebt genoeg intellect vergaard om toegang tot het Maurtishuis te krijgen");
+        }
+
         
         return false;
     }

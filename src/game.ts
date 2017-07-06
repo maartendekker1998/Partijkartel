@@ -29,7 +29,7 @@ class Game {
             var alexander = new npc("Alexander", "Alexander pechtold staat stoned weg te dromen bij de fontijn van graaf Willem II.");
             var gertjan = new npc("Gert-Jan", "Gert-Jan Segers is aan het bidden dat Pechtold de CU mee laat werken in de coalitievorming.")
             var theo = new npc("Theo", "Theo Hiddema staat in de opening van het torentje en rijkt zijn hand al naar je uit.");
-            var marriane = new npc("Marriane", "Je komt Marriane Theime tegen in de gang.");
+            var marriane = new npc("Marriane", "Je komt Marriane Thieme tegen in de gang.");
             var mark = new npc("Mark","Mark Rutte is aanwezig.");
             var jesse = new npc("Jesse","Je ziet Jesse Feras Klaver zitten.");
             var geert = new npc("Geert","Geert Wilders staat hier ook.");
@@ -43,7 +43,7 @@ class Game {
         var hofpoort = new Room("Je staat onder de hofpoort", 0);
         var minjus = new Room("Je bent in het Departement van justitie", 35);
         var kamer = new Room("Je bent in de Tweede kamer der Staten Generaal", 0);
-        var pers = new Room("Je staat op de persverdieping van de tweede kamer", 0);
+        var pers = new Room("Je staat op de persverdieping van de Tweede Kamer der Staten Generaal", 0);
         var minalg = new Room("Je bent in het ministerie van algemene zaken", 60);
         var torentje = new Room("Je bent in het torentje", 0);
         var mauritshuis = new Room("Je bent in het Mauritshuis", 0);
@@ -110,6 +110,7 @@ class Game {
         this.isOn = false;
         this.out.println("Dankjewel voor het spelen. Tot wederziens.");
         this.out.println("Druk op F5 om het spel te herstarten");
+        this.parser.input.disabled = true;
     }
 
     /**
@@ -127,5 +128,4 @@ class Game {
         this.out.println("   ga kijk praat intellect stop help");
         return false;
     }
-
 }

@@ -44,7 +44,17 @@ execute(params : string[]) : boolean {
                 return false;
             }
 
+
             this.game.currentRoom = nextRoom;
+
+            if (this.game.currentRoom.description == "Je bent in het Mauritshuis") {
+                this.game.out.println("Frederik Jansen: Betreed het schip, snel, het kartel zit al achter je aan.")
+                this.game.out.println("Thierry draait zich nog een keer om terwijl hij op de loopplank staat en hij ziet Mark Rutte met gebalde vuisten naar hem wijzen. Baudet's haren wapperen in de wind van democratie terwijl de zeilen van het vlaggenschip van de renaissancevloot gehesen worden...");
+                this.game.out.println("Gefeliciteerd, je hebt het spel uitgespeeld, het partijkartel is nog lang niet opgebroken. Dit kan alleen door FvD te steunen. Ga naar 'forumvoordemocratie.nl' voor meer informatie.")
+                this.game.gameOver();
+                return;
+            }
+
             this.game.out.println(this.game.currentRoom.description);
             this.game.out.print("Uitgangen: ");
             if(this.game.currentRoom.northExit != null) {
