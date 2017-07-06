@@ -123,7 +123,6 @@ class Praat extends Command{
         if (this.game.intellect == 35 ){
              this.game.out.println("Je hebt genoeg intellect vergaard om toegang tot het Departement van Justitie te krijgen.");
         }
-        
         if (this.game.intellect == 60 ){
              this.game.out.println("Je hebt genoeg intellect vergaard om toegang tot het Ministerie van algemene zaken te krijgen.");
         }

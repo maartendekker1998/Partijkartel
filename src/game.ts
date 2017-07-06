@@ -34,7 +34,6 @@ class Game {
             var jesse = new npc("Jesse","Je ziet Jesse Feras Klaver zitten.");
             var geert = new npc("Geert","Geert Wilders staat hier ook.");
             var lodewijk = new npc("Lodewijk","Lodewijk Asscher zit met zijn telefoon te spelen op een bankje.");
-            var jfvd = new npc("JFVD","De JFVD staat al op je te wachten")
 
         // create the rooms
         var buitenhof = new Room("Je staat op het buitenhof", 0);
@@ -58,7 +57,6 @@ class Game {
               pers.setnpc(jesse);
               minalg.setnpc(lodewijk);
               torentje.setnpc(theo);
-              mauritshuis.setnpc(jfvd);
 
         // initialise room exits
         buitenhof.setExits(null, binnenhof, null, null, null, null);
