@@ -1,14 +1,14 @@
 class Room {
-    description : string;
+    description: string;
 
-    northExit : Room;
-    southExit : Room;
-    eastExit : Room;
-    westExit : Room;
-    upExit : Room;
-    downExit : Room;
-    npc : npc;
-    intellectRequirement : number = 0;
+    northExit: Room;
+    southExit: Room;
+    eastExit: Room;
+    westExit: Room;
+    upExit: Room;
+    downExit: Room;
+    npc: npc;
+    intellectRequirement: number = 0;
 
     /**
      * Create a room described "description". Initially, it has
@@ -16,7 +16,7 @@ class Room {
      * "an open court yard".
      * @param description The room's description.
      */
-    constructor(description : string, req : number) {
+    constructor(description: string, req: number) {
         this.description = description;
         this.intellectRequirement = req;
     }
@@ -31,29 +31,29 @@ class Room {
      * @param omhoog The stairs up.
      * @param omlaag Down the stairs.     
     **/
-    setExits(noordelijk : Room, oostelijk : Room, zuidelijk : Room, westelijk : Room, omhoog : Room, omlaag : Room) : void {
-        if(noordelijk != null) {
+    setExits(noordelijk: Room, oostelijk: Room, zuidelijk: Room, westelijk: Room, omhoog: Room, omlaag: Room): void {
+        if (noordelijk != null) {
             this.northExit = noordelijk;
         }
-        if(oostelijk != null) {
+        if (oostelijk != null) {
             this.eastExit = oostelijk;
         }
-        if(zuidelijk != null) {
+        if (zuidelijk != null) {
             this.southExit = zuidelijk;
         }
-        if(westelijk != null) {
+        if (westelijk != null) {
             this.westExit = westelijk;
         }
-        if(omhoog != null) {
+        if (omhoog != null) {
             this.upExit = omhoog;
         }
-        if(omlaag != null) {
+        if (omlaag != null) {
             this.downExit = omlaag;
         }
     }
 
-    setnpc(n : npc) : void {
-          this.npc = n;
+    setnpc(n: npc): void {
+        this.npc = n;
     }
-    
-    }
+
+}

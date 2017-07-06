@@ -1,6 +1,6 @@
-class Help extends Command{
-    execute(params : string[]) : boolean {
-        if(params.length > 0) {
+class Help extends Command {
+    execute(params: string[]): boolean {
+        if (params.length > 0) {
             this.game.out.println("Help met wat?");
             return false;
         }
@@ -10,5 +10,5 @@ class Help extends Command{
         this.game.out.println("Je commando's zijn:");
         this.game.out.println("   ga kijk praat intellect stop help");
         return false;
-    }  
+    }
 }

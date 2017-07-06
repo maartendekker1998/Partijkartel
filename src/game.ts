@@ -1,13 +1,13 @@
 class Game {
-    parser : Parser;
-    out : Printer;
+    parser: Parser;
+    out: Printer;
 
-    currentRoom : Room;
-    intellect : number = 0;
-    isOn : boolean;
-    talkedTo : string[] = [];
+    currentRoom: Room;
+    intellect: number = 0;
+    isOn: boolean;
+    talkedTo: string[] = [];
 
-    
+
     /**
      * Create the game and initialise its internal map.
      */
@@ -22,20 +22,20 @@ class Game {
     /**
      * Create all the rooms and link their exits together.
      */
-        createRooms() : void {
+    createRooms(): void {
 
         // create npcs
-            var sylvana = new npc("Sylvana", "Sylvana Simons staat bij de haringkraam.");
-            var alexander = new npc("Alexander", "Alexander pechtold staat stoned weg te dromen bij de fontijn van graaf Willem II.");
-            var gertjan = new npc("Gert-Jan", "Gert-Jan Segers is aan het bidden dat Pechtold de CU mee laat werken in de coalitievorming.")
-            var theo = new npc("Theo", "Theo Hiddema staat in de opening van het torentje en rijkt zijn hand al naar je uit.");
-            var marriane = new npc("Marriane", "Je komt Marriane Thieme tegen in de gang.");
-            var mark = new npc("Mark","Mark Rutte is aanwezig.");
-            var jesse = new npc("Jesse","Je ziet Jesse Feras Klaver zitten.");
-            var geert = new npc("Geert","Geert Wilders staat hier ook.");
-            var lodewijk = new npc("Lodewijk","Lodewijk Asscher zit met zijn telefoon te spelen op een bankje.");
+        var sylvana = new npc("Sylvana", "Sylvana Simons staat bij de haringkraam.");
+        var alexander = new npc("Alexander", "Alexander pechtold staat stoned weg te dromen bij de fontijn van graaf Willem II.");
+        var gertjan = new npc("Gert-Jan", "Gert-Jan Segers is aan het bidden dat Pechtold de CU mee laat werken in de coalitievorming.")
+        var theo = new npc("Theo", "Theo Hiddema staat in de opening van het torentje en rijkt zijn hand al naar je uit.");
+        var marriane = new npc("Marriane", "Je komt Marriane Thieme tegen in de gang.");
+        var mark = new npc("Mark", "Mark Rutte is aanwezig.");
+        var jesse = new npc("Jesse", "Je ziet Jesse Feras Klaver zitten.");
+        var geert = new npc("Geert", "Geert Wilders staat hier ook.");
+        var lodewijk = new npc("Lodewijk", "Lodewijk Asscher zit met zijn telefoon te spelen op een bankje.");
 
-        // create the rooms
+        // create the rooms and their according intellectual requirement.
         var buitenhof = new Room("Je staat op het buitenhof", 0);
         var binnenhof = new Room("Je staat op het binnenhof", 0);
         var hofkapel = new Room("Je bent in de hofkapel", 0);
@@ -46,17 +46,17 @@ class Game {
         var minalg = new Room("Je bent in het ministerie van algemene zaken", 60);
         var torentje = new Room("Je bent in het torentje", 0);
         var mauritshuis = new Room("Je bent in het Mauritshuis", 0);
-        
-             // initialise npc locations
-              buitenhof.setnpc(sylvana);
-              binnenhof.setnpc(alexander);
-              hofkapel.setnpc(gertjan);
-              hofpoort.setnpc(geert);
-              minjus.setnpc(marriane);
-              kamer.setnpc(mark);
-              pers.setnpc(jesse);
-              minalg.setnpc(lodewijk);
-              torentje.setnpc(theo);
+
+        // initialise npc locations
+        buitenhof.setnpc(sylvana);
+        binnenhof.setnpc(alexander);
+        hofkapel.setnpc(gertjan);
+        hofpoort.setnpc(geert);
+        minjus.setnpc(marriane);
+        kamer.setnpc(mark);
+        pers.setnpc(jesse);
+        minalg.setnpc(lodewijk);
+        torentje.setnpc(theo);
 
         // initialise room exits
         buitenhof.setExits(null, binnenhof, null, null, null, null);
@@ -77,7 +77,7 @@ class Game {
     /**
      * Print out the opening message for the player.
      */
-    printWelcome() : void {
+    printWelcome(): void {
         this.out.println();
         this.out.println("Welkom!");
         this.out.println("Mijn naam is Thierry Baudet.");
@@ -88,23 +88,23 @@ class Game {
         this.out.println(this.currentRoom.description);
         console.log(this.currentRoom);
         this.out.print("Uitgangen: ");
-        if(this.currentRoom.northExit != null) {
+        if (this.currentRoom.northExit != null) {
             this.out.print("noordelijk ");
         }
-        if(this.currentRoom.eastExit != null) {
+        if (this.currentRoom.eastExit != null) {
             this.out.print("oostelijk ");
         }
-        if(this.currentRoom.southExit != null) {
+        if (this.currentRoom.southExit != null) {
             this.out.print("zuidelijk ");
         }
-        if(this.currentRoom.westExit != null) {
+        if (this.currentRoom.westExit != null) {
             this.out.print("westelijk ");
         }
         this.out.println();
         this.out.print(">");
     }
 
-    gameOver() : void {
+    gameOver(): void {
         this.isOn = false;
         this.out.println("Dankjewel voor het spelen. Tot wederziens.");
         this.out.println("Druk op F5 om het spel te herstarten");
@@ -119,7 +119,7 @@ class Game {
      * @param params array containing all parameters
      * @return true, if this command quits the game, false otherwise.
      */
-    printError(params : string[]) : boolean {
+    printError(params: string[]): boolean {
         this.out.println("Ik weet niet wat je bedoelt...");
         this.out.println();
         this.out.println("Je commando's zijn:");

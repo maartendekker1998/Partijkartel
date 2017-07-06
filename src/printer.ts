@@ -1,12 +1,12 @@
 class Printer {
-    output : HTMLElement;
+    output: HTMLElement;
 
     /**
      * Creates the printer object for the specified HTMLElement.
      * 
      * @param output the HTMLElement to outpu to
      */
-    constructor(output : HTMLElement) {
+    constructor(output: HTMLElement) {
         this.output = output;
     }
 
@@ -15,8 +15,8 @@ class Printer {
      * 
      * @param text the text to add to the output
      */
-    print(text : string) : void {
-         this.output.innerHTML += text;       
+    print(text: string): void {
+        this.output.innerHTML += text;
     }
 
     /**
@@ -24,9 +24,9 @@ class Printer {
      * 
      * @param text optional the line of text to add to the output
      */
-    println(text="") : void {
-         this.print(text + "<br/>");
-         this.output.scrollTop = this.output.scrollHeight;       
+    println(text = ""): void {
+        this.print(text + "<br/>");
+        this.output.scrollTop = this.output.scrollHeight;
     }
 
 }
