@@ -100,15 +100,6 @@ class Praat extends Command {
                     this.game.intellect += 30;
                 }
                 break;
-            case "JFVD":
-                if (this.hasTalkedTo("JFVD")) {
-                    standpunt = "THIERRY!, THIERRY!, THIERRY!";
-                } else {
-                    standpunt = "Frederik Jansen: Betreed het schip, snel, het kartel zit al achter je aan."
-                    reactie = "Thierry draait zich nog een keer om terwijl hij op de loopplank staat en hij ziet Mark Rutte met gebalde vuisten naar hem wijzen. Baudet's haren wapperen in de wind van democratie terwijl de zeilen van het vlaggenschip van de rainescancevloot gehesen worden..."
-                    intellect = "Gefeliciteerd, je hebt het spel uitgespeeld, het partijkartel is nog lang niet opgebroken. Dit kan alleen door FvD te steunen. Ga naar 'forumvoordemocratie.nl' voor meer informatie. Typ 'stop' om het spel af te sluiten"
-                }
-                break;
         }
 
         if (standpunt != "")
