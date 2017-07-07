@@ -9,6 +9,9 @@ class Help extends Command {
         this.game.out.println();
         this.game.out.println("Je commando's zijn:");
         this.game.out.println("   ga kijk praat intellect stop help");
+        this.game.out.println("gebruik de commando's als volgt:");
+        this.game.out.println("het commando 'ga' heef de parameters 'noordelijk''oostelijk''zuidelijk''westelijk'.");
+        this.game.out.println("typ 'kijk' om te kijken en 'praat' om te praten etc.");
         return false;
     }
 }
