@@ -248,6 +248,12 @@ var Kijk = (function (_super) {
         if (this.game.currentRoom.westExit != null) {
             this.game.out.print("westelijk ");
         }
+        if(this.game.currentRoom.upExit != null){
+            this.game.out.print("omhoog")
+        }
+        if(this.game.currentRoom.downExit != null){
+            this.game.out.print("omlaag")
+        }
         this.game.out.println();
         this.game.out.print(">");
         if (this.game.currentRoom.npc != null)
